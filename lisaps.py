@@ -8,18 +8,16 @@ import flet as ft
 
 APP_NAME = "Lisaps"
 
-#System Theme
 BG_DARK = "#0B1020"
 BG_CARD = "#171C33"
-ACCENT_1 = "#7C4DFF"   
-ACCENT_2 = "#42C6FF"   
+ACCENT_1 = "#92BD2D"   
+ACCENT_2 = "#C6FF42"   
 TEXT_MUTED = "#8A8FA3"
 DANGER = "#FF5A7A"
 
 DATA_FILE = Path.home() / ".lisaps" / "tasks.json"
 
 
-#Load and Save task
 def load_tasks() -> list[dict]:
     try:
         if DATA_FILE.exists():
@@ -56,13 +54,13 @@ async def main(page: ft.Page):
     )
     progress_label = ft.Text("0 / 0 selesai", size=12, color=TEXT_MUTED)
     new_task_field = ft.TextField(
-        hint_text="Tulis tugas baru...",
+        hint_text="Write your task here...",
         border_radius=14,
         border_color="transparent",
         filled=True,
         fill_color=BG_CARD,
         color="white",
-        content_padding=ft.padding.symmetric(horizontal=16, vertical=14),
+        content_padding=ft.Padding.symmetric(horizontal=16, vertical=14),
         text_size=14,
         expand=True,
         on_submit=lambda e: page.run_task(add_task),
@@ -84,7 +82,7 @@ async def main(page: ft.Page):
         c = ft.Container(
             content=ft.Text(label, size=13, weight=ft.FontWeight.W_600,
                              color="white" if selected else TEXT_MUTED),
-            padding=ft.padding.symmetric(horizontal=16, vertical=8),
+            padding=ft.Padding.symmetric(horizontal=16, vertical=8),
             border_radius=20,
             bgcolor=ACCENT_1 if selected else BG_CARD,
             on_click=on_click,
@@ -96,20 +94,18 @@ async def main(page: ft.Page):
     empty_state = ft.Column(
         [
             ft.Icon(ft.Icons.CHECKLIST_ROUNDED, size=64, color="#2A3153"),
-            ft.Text("Belum ada tugas", size=15, color=TEXT_MUTED, weight=ft.FontWeight.W_500),
-            ft.Text("Tambahkan tugas pertamamu di atas ✨", size=12, color="#565C78"),
+            ft.Text("No task yet", size=15, color=TEXT_MUTED, weight=ft.FontWeight.W_500),
+            ft.Text("Add your first task bububyy:D", size=12, color="#565C78"),
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         spacing=6,
     )
 
-    # Helpers
     def build_task_row(task: dict) -> ft.Container:
         def on_toggle(e):
             task["done"] = e.control.value
             save_tasks(tasks)
             update_progress()
-            # animasi kecil: highlight lalu balik normal
             row.bgcolor = "#20263F" if not task["done"] else BG_CARD
             title.color = TEXT_MUTED if task["done"] else "white"
             title.style = ft.TextStyle(
@@ -159,7 +155,7 @@ async def main(page: ft.Page):
             ),
             bgcolor=BG_CARD,
             border_radius=14,
-            padding=ft.padding.symmetric(horizontal=10, vertical=2),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=2),
             opacity=0,
             offset=ft.Offset(0, 0.15),
             animate_opacity=ft.Animation(280, ft.AnimationCurve.EASE_OUT),
@@ -219,7 +215,7 @@ async def main(page: ft.Page):
         height=48,
         border_radius=14,
         gradient=ft.LinearGradient(colors=[ACCENT_1, ACCENT_2]),
-        alignment=ft.alignment.center,
+        alignment=ft.Alignment.CENTER,
         on_click=lambda e: page.run_task(add_task),
         animate_scale=ft.Animation(120, ft.AnimationCurve.EASE_OUT),
         on_hover=lambda e: (
@@ -239,7 +235,7 @@ async def main(page: ft.Page):
                                     content=ft.Icon(ft.Icons.BOLT_ROUNDED, color="white", size=20),
                                     width=38, height=38, border_radius=12,
                                     gradient=ft.LinearGradient(colors=[ACCENT_1, ACCENT_2]),
-                                    alignment=ft.alignment.center,
+                                    alignment=ft.Alignment.CENTER,
                                 ),
                                 ft.Text(APP_NAME, size=22, weight=ft.FontWeight.W_800, color="white"),
                             ],
@@ -254,25 +250,25 @@ async def main(page: ft.Page):
                 progress_label,
             ]
         ),
-        padding=ft.padding.only(left=22, right=22, top=26, bottom=6),
+        padding=ft.Padding.only(left=22, right=22, top=26, bottom=6),
     )
 
     filters_row = ft.Container(
         content=ft.Row(
-            [chip("Semua", "all"), chip("Aktif", "active"), chip("Selesai", "done")],
+            [chip("all", "all"), chip("active", "active"), chip("done:D", "done")],
             spacing=8,
         ),
-        padding=ft.padding.only(left=22, right=22, top=14, bottom=6),
+        padding=ft.Padding.only(left=22, right=22, top=14, bottom=6),
     )
 
     input_row = ft.Container(
         content=ft.Row([new_task_field, add_button], spacing=10),
-        padding=ft.padding.symmetric(horizontal=22, vertical=12),
+        padding=ft.Padding.symmetric(horizontal=22, vertical=12),
     )
 
     list_container = ft.Container(
         content=task_list_view,
-        padding=ft.padding.only(left=22, right=22, top=6, bottom=24),
+        padding=ft.Padding.only(left=22, right=22, top=6, bottom=24),
         expand=True,
     )
 

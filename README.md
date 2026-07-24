@@ -30,17 +30,17 @@ pip install -r requirements.txt
 ## 3. Run the app (development mode)
 
 ```bash
-flet run main.py
+flet run lisaps.py
 ```
 
-This opens Lisaps as a desktop window. Every time you save `main.py` in VS
+This opens Lisaps as a desktop window. Every time you save `lisaps.py` in VS
 Code, the app automatically reloads (hot reload) — handy for tweaking the UI
 and seeing results instantly.
 
 To preview the mobile version without an emulator, run:
 
 ```bash
-flet run --web main.py
+flet run --web lisaps.py
 ```
 
 then open the `localhost` link that appears in your phone's browser (same
@@ -75,7 +75,7 @@ install.
 
 ```
 Lisaps/
-├── main.py            # all the app code lives here
+├── lisaps.py            # all the app code lives here
 ├── requirements.txt
 └── README.md
 ```
