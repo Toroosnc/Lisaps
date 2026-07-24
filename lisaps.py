@@ -11,15 +11,15 @@ APP_NAME = "Lisaps"
 #System Theme
 BG_DARK = "#0B1020"
 BG_CARD = "#171C33"
-ACCENT_1 = "#7C4DFF"   # ungu
-ACCENT_2 = "#42C6FF"   # biru muda
+ACCENT_1 = "#7C4DFF"   
+ACCENT_2 = "#42C6FF"   
 TEXT_MUTED = "#8A8FA3"
 DANGER = "#FF5A7A"
 
 DATA_FILE = Path.home() / ".lisaps" / "tasks.json"
 
 
-# ---------- penyimpanan data (persisten di file lokal) ----------
+#Load and Save task
 def load_tasks() -> list[dict]:
     try:
         if DATA_FILE.exists():
@@ -49,7 +49,6 @@ async def main(page: ft.Page):
     tasks: list[dict] = load_tasks()
     current_filter = {"value": "all"}  # all | active | done
 
-    # ---------- state UI yang perlu direferensikan ulang ----------
     task_list_view = ft.Column(spacing=10, animate_size=250)
     progress_bar = ft.ProgressBar(
         value=0, width=None, height=8, color=ACCENT_2, bgcolor="#232A45",
@@ -104,7 +103,7 @@ async def main(page: ft.Page):
         spacing=6,
     )
 
-    # ---------- helper UI: satu baris tugas ----------
+    # Helpers
     def build_task_row(task: dict) -> ft.Container:
         def on_toggle(e):
             task["done"] = e.control.value
@@ -189,7 +188,6 @@ async def main(page: ft.Page):
                 task_list_view.controls.append(build_task_row(t))
         update_progress()
         page.update()
-        # trigger animasi masuk setelah frame pertama render
         page.run_task(animate_in)
 
     async def animate_in():
