@@ -68,4 +68,43 @@ class TaskProvider extends ChangeNotifier {
     return _tasks.where((t) => t.projectName == projectName).toList();
   }
   //add nanti
+  static String newId() => _uuid.v4();
+
+  List<TodoTask> _seedTasks() {
+    final today = DateTime.now();
+    return [
+      TodoTask(
+        id: newId(),
+        title: 'Review deck presentasi klien Q3',
+        projectName: 'Kerja',
+        Priority: taskPriority.tinggi,
+        date: today,
+        time:'09:30',
+      )
+      TodoTask(
+        id: newId(),
+        title: 'Beli bahan makanan dan Vitamin',
+        projectName: 'Pribadi',
+        Priority: taskPriority.sedang,
+        date: today,
+        time:'17:30',
+      )
+      TodoTask(
+        id: newId(),
+        title: 'WO',
+        projectName: 'Kesehatan',
+        Priority: taskPriority.rendah,
+        date: today,
+        time:'14:30',
+      )
+      TodoTask(
+        id: newId(),
+        title: 'Draft email rangkuman mingguan',
+        projectName: 'Kerja',
+        Priority: taskPriority.sedang,
+        date: today,
+        time:'19:30',
+      )
+    ];
+  }
 }
