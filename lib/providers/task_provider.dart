@@ -29,6 +29,19 @@ class TaskProvider extends ChangeNotifier {
           .map((e) => TodoTask.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    //adddd continue besok
+    _isLoaded = true;
+    notifyListeners();
   }
+
+  Future<void> _persist() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = jsonEncode(_tasks.map((t) => t.toJson()).toList());
+    await prefs.setString(_prefsKey, raw);
+  }
+  Future<void> addTask(TodoTask task) async {
+    _tasks.add(task);
+    notifyListeners();
+    await _persist();
+  }
+  //add nanti
 }
