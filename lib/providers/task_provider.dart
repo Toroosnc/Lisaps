@@ -32,7 +32,6 @@ class TaskProvider extends ChangeNotifier {
     _isLoaded = true;
     notifyListeners();
   }
-
   Future<void> _persist() async {
     final prefs = await SharedPreferences.getInstance();
     final raw = jsonEncode(_tasks.map((t) => t.toJson()).toList());
@@ -42,6 +41,31 @@ class TaskProvider extends ChangeNotifier {
     _tasks.add(task);
     notifyListeners();
     await _persist();
+  }
+  //add nanti
+  Future<void> toogleDone(String id) async {
+    final t = _tasks.firstWhere((t) => t.id == id);
+    t.isDone = !t.isDone;
+    notifyListeners();
+    await _persist();
+  }
+  Future<void> deleteTask(String id) async {
+    _tasks.removeWhere((t) => t.id == id);
+    notifyListeners();
+    await _persist();
+  }
+  List<TodoTask> tasksForDate(DateTime date) {
+    return _tasks
+        .where((t) =>
+            t.date.year == date.year &&
+            t.date.month == date.month &&
+            t.date.day == date.day)
+        .toList()
+      ..sort((a, b) => a.time.compareTo(b.time));
+  }
+
+  List<TodoTask> tasksForProject(String projectName) {
+    return _tasks.where((t) => t.projectName == projectName).toList();
   }
   //add nanti
 }
