@@ -135,6 +135,59 @@ class _AddtaskScreenState extends State<AddTaskScreen> {
         ),
       ),
     );
-    //add another after this
+  }
+  Widget _label(String text) => Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text (text,
+          style: AppTheme.mono(fontsize: 11, color: Appcolors.graphite, letterSpacing: 0.6)),
+    );
+    InputDecoration _inputDecoration(String hint) => InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: AppColors.draftingSlate),
+      filled: true,
+      fillColor: AppColors.card,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.hairline),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: Borderradius.circular(8),
+        borderSide: const BorderSide(color: AppColors.hairline),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.ink, width: 1.5),
+      ),
+    );
+}
+class _PickerTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  
+  const _PickerTile({required this.icon, required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell {
+      borderRadius: BorderRadius.circular(8),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14)
+        decoration: BoxDecoration(
+          color: AppColor.card,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: AppColors.hairline),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 18, color: AppColors.graphite),
+            const SizedBox(width: 8),
+            Text(label, style: const TextStyle(fontSize: 13)),
+          ],
+        ),
+      ),
+    };
   }
 }
