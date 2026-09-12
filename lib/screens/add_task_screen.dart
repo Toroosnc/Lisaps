@@ -59,5 +59,82 @@ class _AddtaskScreenState extends State<AddTaskScreen> {
     Navigator.of(context).pop();
   }
   @override
-  //add after
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tambah Tugas Baru', style: TextStyle(fontWeight: FontWeight.w600)),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            _label('Judul Tugas'),
+            TextField(
+              controller: _titleController,
+              decoration: _inputDecoration('Ketik tugas...'),
+              autofocus: true,
+            ),
+            const SizedBox(height: 20),
+            _label ('Proyek/Kategori'),
+            TextField(
+              controller: _projectController,
+              decoration: _inputDecoration('mis. Kerja, Pribadi, Kesehatan')
+            ),
+            const SizedBox(height: 20),
+            _label('Prioritas'),
+            Wrap(
+              spacing: 8,
+              children: TaskPriority.value.map((p){
+                final selected = p == _priority;
+                return ChoiceChip(
+                  label: Text(p.label),
+                  selected: selected,
+                  onSelected: (_) => setState(() => _priority = p),
+                  selectedColor: AppColors.ink,
+                  backgroundColor: AppColors.chip,
+                  labelStyle: TextStylr(
+                    color: selected ? Colors.white : AppColors.ink,
+                    fontSize: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(999),
+                    side: BorderSide.none,
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _PickerTile(
+                    icon: Icons.calendar_today_outlined,
+                    label: '${_date.day}/${_date.month}/${_date.year}',
+                    onTap: _pickDate,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _PickerTile(
+                    icon: Icons.access_time,
+                    label: _time.format(context),
+                    onTap: _pickTime,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 28),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _save,
+                child: const Text('Simpan Tugas'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    //add another after this
+  }
 }
