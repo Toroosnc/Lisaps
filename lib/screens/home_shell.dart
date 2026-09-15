@@ -45,3 +45,112 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 }
+
+lass _BottomNav extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+  final VoidCallback onAddTap;
+
+  const _BottomNav({
+    required this.currentIndex,
+    required this.onTap,
+    required this.onAddTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.canvas,
+        border: Border(top: BorderSide(color: AppColors.hairline)),
+      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+      child: SizedBox(
+        height: 64,
+        child: Row(
+          children: [
+            _NavItem(
+              icon: Icons.check_box_outlined,
+              label: 'Tugas',
+              selected: currentIndex == 0,
+              onTap: () => onTap(0),
+            ),
+            _NavItem(
+              icon: Icons.calendar_today_outlined,
+              label: 'Kalender',
+              selected: currentIndex == 1,
+              onTap: () => onTap(1),
+            ),
+            Expanded(
+              child: Center(
+                child: GestureDetector(
+                  onTap: onAddTap,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: AppColors.ink,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(Icons.add, color: Colors.white, size: 24),
+                  ),
+                ),
+              ),
+            ),
+            _NavItem(
+              icon: Icons.folder_open_outlined,
+              label: 'Proyek',
+              selected: currentIndex == 2,
+              onTap: () => onTap(2),
+            ),
+            _NavItem(
+              icon: Icons.settings_outlined,
+              label: 'Setelan',
+              selected: currentIndex == 3,
+              onTap: () => onTap(3),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = selected ? AppColors.ink : AppColors.draftingSlate;
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 22, color: color),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: AppTheme.mono(
+                fontSize: 10,
+                color: color,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
