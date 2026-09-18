@@ -4,7 +4,7 @@ import '../providers/task_provider.dart';
 import '../theme/app_theme.dart';
 import 'project_detail_screen.dart';
 
-class ProejctsScreen extends StatelessWidget [
+class ProejctsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
   static const _icons = {
     'Kerja': Icons.work.outline,
@@ -42,11 +42,52 @@ class ProejctsScreen extends StatelessWidget [
                       builder: (_) => ProjectDetailScreen(projectName:)
                     ),
                   ),
-                  //add some safearea
-                )
-              }
-            )
-      )
-    )
+                  child: Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppColors.card,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColors.hairline),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: AppColors.chip,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              _icons[name] ?? Icons.folder_outlined,
+                              size: 20,
+                              color: AppColors.ink,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(name,
+                                    style: const TextStyle(
+                                        fontSize: 15, fontWeight: FontWeight.w600)),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '$doneCount dari ${tasksInProject.length} tugas selesai',
+                                  style: AppTheme.mono(fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(Icons.chevron_right, color: AppColors.draftingSlate),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
   }
-]
+}
