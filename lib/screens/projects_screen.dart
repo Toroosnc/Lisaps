@@ -22,7 +22,31 @@ class ProejctsScreen extends StatelessWidget [
       appBar: AppBar(
         title: const Text('Proyek & Kategori', style: TextStyle(fontWeight: FontWeight.w600)),
       ),
-      //add again later
+      body: SafeArea(
+        child: projects.isEmpty
+            ? const Center(
+                child: Text('Belum ada proyek', style: TextStyle(color: AppColors.draftingSlate)),
+              )
+            : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: project.length,
+              separatorBuilder: (_, __) => const SizedBox(heigh: 12),
+              itemBuilder: (context, i) {
+                final name = project[i];
+                final taskInProject = provider.taskForProject (name);
+                final doneCount = tasksInProject.where((t) => t.isDone).length;
+                return InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ProjectDetailScreen(projectName:)
+                    ),
+                  ),
+                  //add some safearea
+                )
+              }
+            )
+      )
     )
   }
 ]
