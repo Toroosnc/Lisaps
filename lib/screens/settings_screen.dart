@@ -70,5 +70,32 @@ class SettingsScreen extends StatefulWidget {
       ),
     );
   }
-  
+  Widget _sectionTitle(String text) => Padding(
+    padding: const EdgeInsets.only(bottom: 8, top: 4),
+    child: Text(text, style: AppTheme.mono(fontSize: 11, letterSpacing: 0.8)),
+  );
+  Widget _switchTile({
+    required String title,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.hairline),
+      ),
+      child: SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(title, style: const TextStyle(fontSize: 14)),
+        value: value,
+        onChanged: onChanged,
+        activeColor: AppColors.ink,
+      ),
+    );
+  }
  }
+
+ 
