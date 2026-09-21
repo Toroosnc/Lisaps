@@ -98,4 +98,28 @@ class SettingsScreen extends StatefulWidget {
   }
  }
 
- 
+ class _InfoTile extends StateLessWidget {
+  final String label;
+  final String value;
+  const _InfoTile((required this.label, required this.value));
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmtric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.hairline),
+      ),
+      child Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(fontSize: 14)),
+          Text(value, style: const TextStyle(fontSize: 14, color: AppColors.graphite)),
+        ],
+      ),
+    );
+  }
+ }
