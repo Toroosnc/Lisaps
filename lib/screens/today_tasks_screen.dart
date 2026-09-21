@@ -48,6 +48,57 @@ class _TodayTasksScreenState extends State<TodayTasksScreen> {
           ],
         ),
       ),
-    )
+      body: SafeArea(
+        child: provider.isLoaded
+            ? ListView(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+                children: [
+                  _SummaryCard(progress: progress, done: doneCount, total: total),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 36,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: filters.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 8),
+                      itemBuilder: (context, i) {
+                        final f = filters[i];
+                        final selected = f == _filter;
+                        return ChoiceChip(
+                          label: Text(f == 'Semua' ? '$f (${todayTasks.length})' : f),
+                          selected: selected,
+                          onSelected: (_) => setState(() => _filter = f),
+                          selectedColor: AppColors.ink,
+                          backgroundColor: AppColors.chip,
+                          labelStyle: TextStyle(
+                            color: selected ? Colors.white : AppColors.ink,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(999),
+                            side: BorderSide.none,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  if (visibleTasks.isEmpty)
+                    const _EmptyState()
+                  else
+                    ...visibleTasks.map(
+                      (t) => TaskCard(
+                        task: t,
+                        onToggle: (_) => provider.toggleDone(t.id),
+                        onDismissed: () => provider.deleteTask(t.id),
+                      ),
+                    ),
+                ],
+              )
+            : const Center(child: CircularProgressIndicator(color: AppColors.ink)),
+      ),
+    );
   }
 }
+// add tomorrow
