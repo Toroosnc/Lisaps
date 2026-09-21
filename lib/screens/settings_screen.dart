@@ -49,10 +49,26 @@ class SettingsScreen extends StatefulWidget {
                 ],
               ),
             ),
-            //add later
-          ]
-        )
-      )
-    )
+            const SizedBox(height: 20),
+            _sectionTitle('PREFERENSI'),
+            _switchTile(
+              title: 'Notifikasi pengingat tugas',
+              value: _notifOn,
+              onChanged: (v) => setState(() => _notifOn = v),
+            ),
+            _switchTile(
+              title: 'Tampilka streak harian',
+              value: _streakOn,
+              onChanged: (v) => setState(() => _streakOn = v),
+            ),
+            const SizedBox(height: 20),
+            _sectionTitle('TENTANG'),
+            const _InfoTile(label: 'Aplikasi', value: 'Lisaps'),
+            const _InfoTile(label: 'Versi', value: '1.0.0'),
+          ],
+        ),
+      ),
+    );
   }
+  
  }
