@@ -101,4 +101,11 @@ class _TodayTasksScreenState extends State<TodayTasksScreen> {
     );
   }
 }
-// add tomorrow
+
+class _SummaryCard extends StatelessWidget {
+  final double progress;
+  final int done;
+  final int total;
+  const _SummaryCard({required this.progress, required this.done, required this.total});
+  //add again
+}
