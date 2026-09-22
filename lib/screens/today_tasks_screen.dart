@@ -141,4 +141,24 @@ class _SummaryCard extends StatelessWidget {
     );
   }
 }
-//add after this
+
+class _EmptyState extends StatelessWidget {
+  const _EmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.hairline, style: BorderStyle.solid),
+      ),
+      alignment: Alignment.center,
+      child: const Text(
+        'Belum ada tugas di kategori ini. \nKetuk + untuk menambah tugas baru.',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: AppColors.draftingSlate, fontSize: 13),
+      ),
+    );
+  }
+}
