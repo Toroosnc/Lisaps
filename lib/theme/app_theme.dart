@@ -18,4 +18,61 @@ class AppColors {
   static const priorityLowBg = Color(0xFFF0F1F4);
   static const priorityLowText = Color(0xFF5E636E);
 }
-//add after
+
+lass AppTheme {
+  static ThemeData get light {
+    final base = ThemeData(useMaterial3: true, brightness: Brightness.light);
+    return base.copyWith(
+      scaffoldBackgroundColor: AppColors.canvas,
+      colorScheme: base.colorScheme.copyWith(
+        primary: AppColors.ink,
+        onPrimary: Colors.white,
+        secondary: AppColors.cobalt,
+        surface: AppColors.card,
+        error: AppColors.error,
+      ),
+      textTheme: GoogleFonts.geistTextTheme(base.textTheme),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.canvas,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.ink,
+      ),
+      dividerColor: AppColors.hairline,
+      checkboxTheme: CheckboxThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        side: const BorderSide(color: AppColors.draftingSlate, width: 1.5),
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.ink
+              : Colors.white,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.ink,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          textStyle: GoogleFonts.geist(fontWeight: FontWeight.w500, fontSize: 15),
+        ),
+      ),
+    );
+  }
+
+  /// Font monospace untuk metadata
+  static TextStyle mono({
+    double fontSize = 11,
+    FontWeight fontWeight = FontWeight.w500,
+    Color color = AppColors.graphite,
+    double letterSpacing = 0.4,
+  }) {
+    return GoogleFonts.jetBrainsMono(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      letterSpacing: letterSpacing,
+    );
+  }
+}
