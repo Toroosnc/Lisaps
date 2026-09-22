@@ -107,5 +107,38 @@ class _SummaryCard extends StatelessWidget {
   final int done;
   final int total;
   const _SummaryCard({required this.progress, required this.done, required this.total});
-  //add again
+  
+  @override
+  Widget build(BuildContext context) {
+    final pct = (progress * 100).round();
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.hairline),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Hari Ini',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.ink)),
+          const SizedBox(height: 10),
+          Text('Kemajuan Aktivitas  $done dari $total tugas selesai ($pct%)',
+              style: const TextStyle(fontSize: 13, color: AppColors.graphite)),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 8,
+              backgroundColor: AppColors.chip,
+              valueColor: const AlwaysStoppedAnimation(AppColors.ink),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+//add after this
