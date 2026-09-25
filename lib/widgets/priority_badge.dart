@@ -31,3 +31,20 @@ class PriorityBadge extends StatelessWidget {
         );
     }
 }
+
+class TagBadge extends StatelessWidget {
+  final String label;
+  const TagBadge({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: AppColors.chip,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(label, style: AppTheme.mono(fontSize: 10)),
+    );
+  }
+}
